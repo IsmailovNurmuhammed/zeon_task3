@@ -2,6 +2,7 @@ import React, {useContext, useEffect, useState} from 'react';
 import dayjs from "dayjs";
 import {getMonth} from "../utils";
 import GlobalContext from "../context/GlobalContext";
+import SvgIcon from "./UI/SvgIcon";
 
 const SmallCalendar = () => {
   const [currentMonthIndex, setCurrentMonthIndex] = useState(dayjs().month());
@@ -9,7 +10,7 @@ const SmallCalendar = () => {
   useEffect(() => {
     setCurrentMonth(getMonth(currentMonthIndex))
   }, [currentMonthIndex]);
-  const {monthIndex,setSmallCalendarMonth, setSelectedDay, selectedDay} = useContext(GlobalContext);
+  const {monthIndex, setSmallCalendarMonth, setSelectedDay, selectedDay} = useContext(GlobalContext);
   useEffect(() => {
     setCurrentMonthIndex(monthIndex)
   }, [monthIndex])
@@ -28,36 +29,33 @@ const SmallCalendar = () => {
     const currentDay = day.format(format);
     const selectedD = selectedDay && selectedDay.format(format);
     if (nowDay === currentDay) {
-      return 'bg-blue-500 rounded-full text-white';
+      return 'small-calendar__content_current-day';
     } else if (currentDay === selectedD) {
-      return 'bg-blue-100 rounded-full text-blue-600 text-bold'
-    }else {
-      return ''}
+      return 'small-calendar__content_selected'
+    } else {
+      return ''
+    }
   }
 
 
   return (
-    <div className="mt-9">
-      <header className="flex justify-between">
-        <p className="text-gray-600 font-bold">
+    <div className="small-calendar">
+      <header className="small-calendar__header">
+        <p className="small-calendar__header_title">
           {dayjs(new Date(dayjs().year(), currentMonthIndex)).format('MMMM YYYY')}
         </p>
-        <div>
+        <div className="small-calendar__header_arrows">
           <button onClick={handlePrevMonth}>
-        <span className="material-icons-outlined cursor-pointer text-gray-600 mx-2">
-          chevron_left
-        </span>
+            <SvgIcon id={'arrow'} />
           </button>
           <button onClick={handleNextMonth}>
-        <span className="material-icons-outlined cursor-pointer text-gray-600 mx-2">
-          chevron_right
-        </span>
+            <SvgIcon id={'arrow_right'} />
           </button>
         </div>
       </header>
-      <div className="grid grid-cols-7 grid-rows-7">
+      <div className="small-calendar__content">
         {currentMonth[0].map((day, index) => (
-          <span key={index} className="text-sm py-1 text-center">
+          <span key={index} className="small-calendar__content_title">
             {day.format("dd").charAt(0)}
           </span>
         ))}
@@ -72,8 +70,8 @@ const SmallCalendar = () => {
                       setSelectedDay(day)
                     }}
                     key={i}
-                    className={`py-1 w-full ${getDayClass(day)}`}>
-                    <span className="text-sm">{day.format('D')}</span>
+                    className={`small-calendar__content_num ${getDayClass(day)}`}>
+                    <span className="small-calendar__content_num">{day.format('D')}</span>
                   </button>
                 ))}
             </React.Fragment>

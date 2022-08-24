@@ -2,7 +2,7 @@ import React, {useContext, useEffect, useState} from 'react';
 import dayjs from "dayjs";
 import GlobalContext from "../context/GlobalContext";
 
-const Day = ({day, rowIndex}) => {
+const Day = ({day, rowIndex, colIndex}) => {
   const [dayEvents, setDayEvents] = useState([]);
   const {setSelectedDay, setShowEventModal, filteredEvents, setSelectedEvent} = useContext(GlobalContext);
   // console.log(savedEvents);
@@ -17,22 +17,23 @@ const Day = ({day, rowIndex}) => {
   function getCurrentDayClass() {
     return day
       .format('DD-MM-YY') === dayjs().format('DD-MM-YY')
-      ? 'bg-blue-600 text-white rounded-full w-7'
+      ? 'calendar__day_current'
       : '';
   }
 
   return (
-    <div className="border border-gray-200 flex flex-col">
-      <header className="flex flex-col items-end justify-end">
+    <div
+      className={`calendar__day  ${colIndex === 5 ? 'last-days' : ''} ${colIndex === 6 ? 'last-days' : ''}`}>
+      <header className="calendar__day_header">
         {rowIndex === 0 &&
-          <p className="m-2 text-sm">{day.format("ddd").toUpperCase()}</p>
+          <p className="calendar__day_name">{day.format("ddd").toUpperCase()}</p>
         }
-        <p className={`m-2 text-sm text-center ${getCurrentDayClass()}`}>
+        <p className={`calendar__day_num ${getCurrentDayClass()}`}>
           {day.format("DD")}
         </p>
       </header>
       <div
-        className="flex-1 cursor-pointer"
+        className="calendar__day_body"
         onClick={() => {
           setSelectedDay(day);
           setShowEventModal(true)
@@ -43,7 +44,7 @@ const Day = ({day, rowIndex}) => {
           <div
             key={index}
             onClick={() => setSelectedEvent(event)}
-            className={`bg-${event.label}-500 p-1 mr-3 text-white text-sm rounded mb-1 truncate`}
+            className={`${event.label} calendar__day_note`}
           >
             {event.title}
           </div>

@@ -3,11 +3,11 @@ import Day from "./Day";
 
 const Month = ({month}) => {
   return (
-    <div className="flex-1 grid grid-cols-7 grid-rows-6">
+    <div className="calendar ">
       {month.map((row, index) => (
         <React.Fragment key={index}>
           {row.map((day, i) => (
-            <Day day={day} key={i} rowIndex={index} />
+            <Day day={day} key={i} colIndex={i} rowIndex={index} />
           ) )}
         </React.Fragment>
       ))}
