@@ -12,21 +12,27 @@ const EventModal = () => {
     ? labelsClasses.find((label) => label === selectedEvent.label)
     : labelsClasses[0]);
 
+
   function handleSubmit(event) {
-    event.preventDefault();
-    const calendarEvent = {
-      title: title,
-      description: description,
-      label: selectedLabel,
-      day: selectedDay.valueOf(),
-      id: selectedEvent ? selectedEvent.id : Date.now(),
-    };
-    if (selectedEvent) {
-      dispatchCalEvent({type: 'update', payload: calendarEvent});
+    // event.preventDefault();
+    if (title === '') {
+      return null;
     } else {
-      dispatchCalEvent({type: 'push', payload: calendarEvent});
+      const calendarEvent = {
+        title: title,
+        description: description,
+        label: selectedLabel,
+        day: selectedDay.valueOf(),
+        id: selectedEvent ? selectedEvent.id : Date.now(),
+      };
+      if (selectedEvent) {
+        dispatchCalEvent({type: 'update', payload: calendarEvent});
+      } else {
+        dispatchCalEvent({type: 'push', payload: calendarEvent});
+      }
+      setShowEventModal(false);
     }
-    setShowEventModal(false);
+
   }
 
   return (
@@ -99,11 +105,12 @@ const EventModal = () => {
         <footer className="modal__footer">
           <div className="modal__footer_inner">
             <button
-              type="submit"
               onClick={handleSubmit}
               className="modal__footer_btn"
             >
+              <span>
               Save
+              </span>
             </button>
           </div>
         </footer>

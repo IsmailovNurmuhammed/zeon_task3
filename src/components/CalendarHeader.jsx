@@ -7,7 +7,6 @@ const CalendarHeader = () => {
   const {monthIndex, setMonthIndex} = useContext(GlobalContext);
 
   // console.log(monthIndex);
-
   function handleNextMonth() {
     setMonthIndex(monthIndex + 1);
     // console.log("+1")
