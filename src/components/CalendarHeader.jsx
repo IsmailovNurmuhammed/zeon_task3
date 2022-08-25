@@ -4,7 +4,7 @@ import dayjs from "dayjs";
 import SvgIcon from "./UI/SvgIcon";
 
 const CalendarHeader = () => {
-  const {monthIndex, setMonthIndex} = useContext(GlobalContext);
+  const {monthIndex, setMonthIndex, setSelectedDay} = useContext(GlobalContext);
 
   // console.log(monthIndex);
   function handleNextMonth() {
@@ -20,7 +20,8 @@ const CalendarHeader = () => {
   function handleReset() {
     setMonthIndex(monthIndex === dayjs().month()
       ? monthIndex + Math.random()
-      : dayjs().month())
+      : dayjs().month());
+    setSelectedDay(dayjs());
   }
 
   return (
