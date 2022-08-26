@@ -13,10 +13,16 @@ const EventModal = () => {
     : labelsClasses[0]);
 
 
+  const clickOutside = () => {
+    setShowEventModal(false);
+  }
+
   function handleSubmit(event) {
-    // event.preventDefault();
-    if (title === '') {
-      return null;
+
+    if (title.trim() === '') {
+      setTitle('');
+      setDescription('');
+    event.stopPropagation();
     } else {
       const calendarEvent = {
         title: title,
@@ -36,8 +42,8 @@ const EventModal = () => {
   }
 
   return (
-    <div className="modal-wrapper">
-      <form className="modal-block">
+    <div onClick={clickOutside} className="modal-wrapper">
+      <form onClick={event => event.stopPropagation()} className="modal-block">
         <header className="modal__header">
           <SvgIcon id={"menu"}/>
           <div className="modal__header_icons">
@@ -105,6 +111,7 @@ const EventModal = () => {
         <footer className="modal__footer">
           <div className="modal__footer_inner">
             <button
+              type="submit"
               onClick={handleSubmit}
               className="modal__footer_btn"
             >
