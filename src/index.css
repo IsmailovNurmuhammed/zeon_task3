@@ -306,12 +306,12 @@ body::-webkit-scrollbar-track {
 }
 
 .calendar__day_name {
-  margin: 8px 8px 0 0;
+  margin: 4px 8px 0 0;
   font-size: 14px;
 }
 
 .calendar__day_num {
-  margin: 8px 8px 0 0;
+  margin: 4px 8px 0 0;
   text-align: center;
   font-size: 14px;
 }

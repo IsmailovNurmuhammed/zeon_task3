@@ -27,16 +27,6 @@ const Day = ({day, rowIndex, colIndex}) => {
       : '';
   }
 
-  function defineCurrentMonth(day) {
-    if (day.format("M") === day.format("M")) {
-      return '';
-    } else {
-      return 'not-this-month-day';
-    }
-  }
-
-  // console.log(day.daysInMonth())
-  console.log(day.endOf("month").date());
   return (
     <div
       className={`calendar__day  ${colIndex === 5 ? 'last-days' : ''} ${colIndex === 6 ? 'last-days' : ''} ${day.format('D') === "1" ? "first-day-month" : ''}`}>
